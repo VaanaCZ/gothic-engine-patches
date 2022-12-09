@@ -1,5 +1,5 @@
 // SWIM_2_HANG fixes for Union
-// Created by Vaana
+// Created by Vaana and Auronen
 
 #engine [G1]
     #patch [SWIM_2_HANG fix]
@@ -23,6 +23,18 @@
             call    0x00629290        ; Swim_CanClimbLedge
             test    eax, eax
             jnz     $callClimbLedge
+            orgcode
+        #/assembler
+		
+        #assembler [0x00751711]
+            mov     ecx, [esi+9B8h]
+            call    0x00746650        ; GetActionMode
+            cmp     eax, 5
+            jnz     end
+            mov     ecx, [esi+9B8h]
+            call    0x006292D0        ; Swim_ClimbLedge
+            jmp     0x00751693
+        end:
             orgcode
         #/assembler
     #/patch
@@ -50,6 +62,18 @@
             call    0x0064E4F0        ; Swim_CanClimbLedge
             test    eax, eax
             jnz     $callClimbLedge
+            orgcode
+        #/assembler
+		
+        #assembler [0x0079392B]
+            mov     ecx, [esi+9C0h]
+            call    0x007874C0        ; GetActionMode
+            cmp     eax, 5
+            jnz     end
+            mov     ecx, [esi+9C0h]
+            call    0x0064E530        ; Swim_ClimbLedge
+            jmp     0x007938A3
+        end:
             orgcode
         #/assembler
     #/patch
