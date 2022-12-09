@@ -50,3 +50,27 @@
         #/assembler
     #/patch
 #/engine
+
+#engine [G2]
+    #patch [T_HANG_2_FALLDN FPS fix]
+        float moveSpeed = 0.24 // Default FPS is 24 and the default moveSpeed is 10
+
+        #assembler [0x0063CF69]
+            fld     dword ptr [$moveSpeed]
+            fmul    dword ptr [0x00974C80] ; frameTime
+            fld     dword ptr [esp+2Ch]
+            sub     esp, 0Ch
+            fmul    st0, st1
+            lea     ecx, [esp+3Ch]
+            fstp    dword ptr [esp+8h]
+            fld     dword ptr [esp+34h]
+            fmul    st0, st1
+            fstp    dword ptr [esp+4h]
+            fld     dword ptr [esp+30h]
+            fmul    st0, st1
+            fstp    dword ptr [esp]
+            fcomp                          ; Clear-up FPU stack
+            jmp     0x0063CF99
+        #/assembler
+    #/patch
+#/engine
