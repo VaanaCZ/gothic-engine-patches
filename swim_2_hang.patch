@@ -3,19 +3,16 @@
 
 #engine [G1]
     #patch [SWIM_2_HANG fix]
-
-        // Ported directly from 0.94k
-
         #assembler [callClimbLedge]
             mov     ecx, [0x0086CCA0] ; zinput
             mov     edx, [ecx]
             push    3
             call    dword ptr [edx+4]
-            call    0x00777558 ; __ftol
+            call    0x00777558        ; __ftol
             cmp     eax, ebx
             jz      0x006137D7
             mov     ecx, esi
-            call    0x006292D0 ; Swim_ClimbLedge
+            call    0x006292D0        ; Swim_ClimbLedge
 //            mov     ebx, 1
 //            mov     [esi+131Ch], ebx
             jmp     0x006137D7
@@ -23,22 +20,91 @@
 
         #assembler [0x006137AD]
             mov     ecx, esi
-            call    0x00629290 ; Swim_CanClimbLedge
+            call    0x00629290        ; Swim_CanClimbLedge
             test    eax, eax
             jnz     $callClimbLedge
             orgcode
         #/assembler
+    #/patch
+#/engine
 
-        // Swim_ClimbLedge fixes
-        
-        #assembler [0x0062937D]
-//            mov     ecx, esi
-//            call    0x005001A0 ; GetFoundLedge
+#engine [G1A]
+    #patch [SWIM_2_HANG fix]
+        #assembler [callClimbLedge]
+            mov     ecx, [0x008B2798] ; zinput
+            mov     edx, [ecx]
+            push    3
+            call    dword ptr [edx+4]
+            call    0x007BB318        ; __ftol
+            cmp     eax, ebx
+            jz      0x00636B90
             mov     ecx, esi
-            call    0x00625A20 ; StopTurnAnis
+            call    0x0064E530        ; Swim_ClimbLedge
+//            mov     ebx, 1
+//            mov     [esi+131Ch], ebx
+            jmp     0x00636B90
+        #/assembler
+
+        #assembler [0x00636B64]
+            mov     ecx, esi
+            call    0x0064E4F0        ; Swim_CanClimbLedge
+            test    eax, eax
+            jnz     $callClimbLedge
             orgcode
         #/assembler
-        
-        
+    #/patch
+#/engine
+
+#engine [G2]
+    #patch [SWIM_2_HANG fix]
+        #assembler [callClimbLedge]
+            mov     ecx, [0x008C2FF8] ; zinput
+            mov     edx, [ecx]
+            push    3
+            call    dword ptr [edx+4]
+            call    0x007C4A88        ; __ftol
+            cmp     eax, ebx
+            jz      0x0063D614
+            mov     ecx, esi
+            call    0x00655AB0        ; Swim_ClimbLedge
+//            mov     ebx, 1
+//            mov     [esi+131Ch], ebx
+            jmp     0x0063D614
+        #/assembler
+
+        #assembler [0x0063D5E8]
+            mov     ecx, esi
+            call    0x00655A70        ; Swim_CanClimbLedge
+            test    eax, eax
+            jnz     $callClimbLedge
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [SWIM_2_HANG fix]
+        #assembler [callClimbLedge]
+            mov     ecx, [0x008D1650] ; zinput
+            mov     edx, [ecx]
+            push    3
+            call    dword ptr [edx+4]
+            call    0x007D0F48        ; __ftol
+            cmp     eax, ebx
+            jz      0x00699E64
+            mov     ecx, esi
+            call    0x006B2440        ; Swim_ClimbLedge
+//            mov     ebx, 1
+//            mov     [esi+131Ch], ebx
+            jmp     0x00699E64
+        #/assembler
+
+        #assembler [0x00699E38]
+            mov     ecx, esi
+            call    0x006B2400        ; Swim_CanClimbLedge
+            test    eax, eax
+            jnz     $callClimbLedge
+            orgcode
+        #/assembler
     #/patch
 #/engine
