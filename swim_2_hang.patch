@@ -142,5 +142,17 @@
             jnz     $callClimbLedge
             orgcode
         #/assembler
+		
+        #assembler [0x006876E1]
+            mov     ecx, [esi+980h]
+            call    0x0067A890        ; GetActionMode
+            cmp     eax, 5
+            jnz     end
+            mov     ecx, [esi+980h]
+            call    0x006B2440        ; Swim_ClimbLedge
+            jmp     0x00687663
+        end:
+            orgcode
+        #/assembler
     #/patch
 #/engine
