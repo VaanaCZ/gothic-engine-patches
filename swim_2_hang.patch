@@ -1,0 +1,44 @@
+// SWIM_2_HANG fixes for Union
+// Created by Vaana
+
+#engine [G1]
+    #patch [SWIM_2_HANG fix]
+
+        // Ported directly from 0.94k
+
+        #assembler [callClimbLedge]
+            mov     ecx, [0x0086CCA0] ; zinput
+            mov     edx, [ecx]
+            push    3
+            call    dword ptr [edx+4]
+            call    0x00777558 ; __ftol
+            cmp     eax, ebx
+            jz      0x006137D7
+            mov     ecx, esi
+            call    0x006292D0 ; Swim_ClimbLedge
+//            mov     ebx, 1
+//            mov     [esi+131Ch], ebx
+            jmp     0x006137D7
+        #/assembler
+
+        #assembler [0x006137AD]
+            mov     ecx, esi
+            call    0x00629290 ; Swim_CanClimbLedge
+            test    eax, eax
+            jnz     $callClimbLedge
+            orgcode
+        #/assembler
+
+        // Swim_ClimbLedge fixes
+        
+        #assembler [0x0062937D]
+//            mov     ecx, esi
+//            call    0x005001A0 ; GetFoundLedge
+            mov     ecx, esi
+            call    0x00625A20 ; StopTurnAnis
+            orgcode
+        #/assembler
+        
+        
+    #/patch
+#/engine

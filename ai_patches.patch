@@ -1,0 +1,74 @@
+// AI fixes for Union
+// created by Auronen, Fawkes and Vaana
+
+#engine [G1]
+    #patch [Fixed SVM interrupt on certain perceptions]
+        BOOL g_bDontKillOUSound = False
+        // AssessQuietSound_S
+        #assembler [0x006B5BC0]
+            mov     dword ptr ds:[$g_bDontKillOUSound], 1
+            orgcode
+            mov     dword ptr ds:[$g_bDontKillOUSound], 0
+        #/assembler
+        // AssessEnterRoom_S
+        #assembler [0x0069AEFD]
+            mov     dword ptr ds:[$g_bDontKillOUSound], 1
+            orgcode
+            mov     dword ptr ds:[$g_bDontKillOUSound], 0
+        #/assembler
+        // StopRunningOU
+        #assembler [0x006338B4]
+            mov     eax, dword ptr ds:[$g_bDontKillOUSound]
+            test    eax, eax
+            jnz     0x00633A03
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G1A]
+    #patch [Fixed SVM interrupt on certain perceptions]
+        BOOL g_bDontKillOUSound = False
+        // AssessQuietSound_S
+        #assembler [0x006EA430]
+            mov     dword ptr ds:[$g_bDontKillOUSound], 1
+            orgcode
+            mov     dword ptr ds:[$g_bDontKillOUSound], 0
+        #/assembler
+        // AssessEnterRoom_S
+        #assembler [0x006CCEAD]
+            mov     dword ptr ds:[$g_bDontKillOUSound], 1
+            orgcode
+            mov     dword ptr ds:[$g_bDontKillOUSound], 0
+        #/assembler
+        // StopRunningOU
+        #assembler [0x00659724]
+            mov     eax, dword ptr ds:[$g_bDontKillOUSound]
+            test    eax, eax
+            jnz     0x0065986C
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2]
+    #patch [Fixed SVM interrupt on certain perceptions]
+        // AssessEnterRoom_S
+        #assembler [0x006DFC40]
+            mov     dword ptr ds:[0x009831F0], 1
+            orgcode
+            mov     dword ptr ds:[0x009831F0], 0
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [Fixed SVM interrupt on certain perceptions]
+        // AssessEnterRoom_S
+        #assembler [0x0073E530]
+            mov     dword ptr ds:[0x00AB2698], 1
+            orgcode
+            mov     dword ptr ds:[0x00AB2698], 0
+        #/assembler
+    #/patch
+#/engine
