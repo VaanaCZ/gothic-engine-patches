@@ -67,6 +67,22 @@
             mov     ecx, esi
             orgcode
         #/assembler
+
+        // PC_SpecialMove
+        #assembler [0x00613A48]
+            mov     ecx, [esi+68h]
+            push    $memString
+            call    0x0047EC50        ; GetAniIDFromAniName
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x0046D1E0        ; GetAniFromAniID
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x0046D220        ; IsAniActive
+            test    eax, eax
+            jnz     0x00613A55
+            orgcode
+        #/assembler
     #/patch
 #/engine
 
