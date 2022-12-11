@@ -3,6 +3,7 @@
 
 #engine [G1]
     #patch [SWIM_2_HANG fix]
+        // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x0086CCA0] ; zinput
             mov     edx, [ecx]
@@ -26,6 +27,7 @@
             orgcode
         #/assembler
         
+        // RbtAvoidObstacles
         #assembler [0x00751711]
             mov     ecx, [esi+9B8h]
             call    0x00746650        ; GetActionMode
@@ -38,8 +40,8 @@
             orgcode
         #/assembler
         
+        // CheckFallStates
         INT memString = CreateMemString("T_SWIM_2_HANG")
-        
         #assembler [0x0062C1F0]
             mov     esi, ecx
             mov     ecx, [esi+68h]
@@ -63,6 +65,7 @@
 
 #engine [G1A]
     #patch [SWIM_2_HANG fix]
+        // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x008B2798] ; zinput
             mov     edx, [ecx]
@@ -86,6 +89,7 @@
             orgcode
         #/assembler
         
+        // RbtAvoidObstacles
         #assembler [0x0079392B]
             mov     ecx, [esi+9C0h]
             call    0x007874C0        ; GetActionMode
@@ -97,11 +101,33 @@
         end:
             orgcode
         #/assembler
+        
+        // CheckFallStates
+        INT memString = CreateMemString("T_SWIM_2_HANG")
+        #assembler [0x00651810]
+            mov     esi, ecx
+            mov     ecx, [esi+68h]
+            push    $memString
+            call    0x00489660        ; GetAniIDFromAniName
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x00475680        ; GetAniFromAniID
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x004756D0        ; IsAniActive
+            test    eax, eax
+            jz      end
+            ret
+        end:
+            mov     ecx, esi
+            orgcode
+        #/assembler
     #/patch
 #/engine
 
 #engine [G2]
     #patch [SWIM_2_HANG fix]
+        // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x008C2FF8] ; zinput
             mov     edx, [ecx]
@@ -125,6 +151,7 @@
             orgcode
         #/assembler
         
+        // RbtAvoidObstacles
         #assembler [0x0079E1E1]
             mov     ecx, [esi+8ECh]
             call    0x007914E0        ; GetActionMode
@@ -136,11 +163,33 @@
         end:
             orgcode
         #/assembler
+        
+        // CheckFallStates
+        INT memString = CreateMemString("T_SWIM_2_HANG")
+        #assembler [0x00658E80]
+            mov     esi, ecx
+            mov     ecx, [esi+68h]
+            push    $memString
+            call    0x0060A9B0        ; GetAniIDFromAniName
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x00471E30        ; GetAniFromAniID
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x00471E70        ; IsAniActive
+            test    eax, eax
+            jz      end
+            ret
+        end:
+            mov     ecx, esi
+            orgcode
+        #/assembler
     #/patch
 #/engine
 
 #engine [G2A]
     #patch [SWIM_2_HANG fix]
+        // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x008D1650] ; zinput
             mov     edx, [ecx]
@@ -164,6 +213,7 @@
             orgcode
         #/assembler
         
+        // RbtAvoidObstacles
         #assembler [0x006876E1]
             mov     ecx, [esi+980h]
             call    0x0067A890        ; GetActionMode
@@ -173,6 +223,27 @@
             call    0x006B2440        ; Swim_ClimbLedge
             jmp     0x00687663
         end:
+            orgcode
+        #/assembler
+        
+        // CheckFallStates
+        INT memString = CreateMemString("T_SWIM_2_HANG")
+        #assembler [0x006B5810]
+            mov     esi, ecx
+            mov     ecx, [esi+68h]
+            push    $memString
+            call    0x00612070        ; GetAniIDFromAniName
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x00472F50        ; GetAniFromAniID
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x00472F90        ; IsAniActive
+            test    eax, eax
+            jz      end
+            ret
+        end:
+            mov     ecx, esi
             orgcode
         #/assembler
     #/patch
