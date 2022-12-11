@@ -39,6 +39,13 @@
         end:
             orgcode
         #/assembler
+		
+        // Swim_ClimbLedge
+        #assembler [0x0062937D]
+            mov     ecx, esi
+            call    0x00625A20 ; StopTurnAnis
+            orgcode
+        #/assembler
         
         // CheckFallStates
         INT memString = CreateMemString("T_SWIM_2_HANG")
@@ -99,6 +106,13 @@
             call    0x0064E530        ; Swim_ClimbLedge
             jmp     0x007938A3
         end:
+            orgcode
+        #/assembler
+		
+        // Swim_ClimbLedge
+        #assembler [0x0064E5E7]
+            mov     ecx, esi
+            call    0x0064A7C0        ; StopTurnAnis
             orgcode
         #/assembler
         
@@ -163,6 +177,13 @@
         end:
             orgcode
         #/assembler
+		
+        // Swim_ClimbLedge
+        #assembler [0x00655B5D]
+            mov     ecx, esi
+            call    0x00651CB0        ; StopTurnAnis
+            orgcode
+        #/assembler
         
         // CheckFallStates
         INT memString = CreateMemString("T_SWIM_2_HANG")
@@ -223,6 +244,13 @@
             call    0x006B2440        ; Swim_ClimbLedge
             jmp     0x00687663
         end:
+            orgcode
+        #/assembler
+		
+        // Swim_ClimbLedge
+        #assembler [0x006B24ED]
+            mov     ecx, esi
+            call    0x006AE530        ; StopTurnAnis
             orgcode
         #/assembler
         
