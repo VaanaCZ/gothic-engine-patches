@@ -43,7 +43,7 @@
         // Swim_ClimbLedge
         #assembler [0x0062937D]
             mov     ecx, esi
-            call    0x00625A20 ; StopTurnAnis
+            call    0x00625A20        ; StopTurnAnis
             orgcode
         #/assembler
 
@@ -111,7 +111,7 @@
 
         // Swim_ClimbLedge
         #assembler [0x0064E5E7]
-            mov     ecx, esi
+            mov     ecx, ebp
             call    0x0064A7C0        ; StopTurnAnis
             orgcode
         #/assembler
