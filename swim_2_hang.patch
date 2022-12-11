@@ -25,7 +25,7 @@
             jnz     $callClimbLedge
             orgcode
         #/assembler
-		
+        
         #assembler [0x00751711]
             mov     ecx, [esi+9B8h]
             call    0x00746650        ; GetActionMode
@@ -35,6 +35,27 @@
             call    0x006292D0        ; Swim_ClimbLedge
             jmp     0x00751693
         end:
+            orgcode
+        #/assembler
+        
+        INT memString = CreateMemString("T_SWIM_2_HANG")
+        
+        #assembler [0x0062C1F0]
+            mov     esi, ecx
+            mov     ecx, [esi+68h]
+            push    $memString
+            call    0x0047EC50        ; GetAniIDFromAniName
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x0046D1E0        ; GetAniFromAniID
+            mov     ecx, [esi+68h]
+            push    eax
+            call    0x0046D220        ; IsAniActive
+            test    eax, eax
+            jz      end
+            ret
+        end:
+            mov     ecx, esi
             orgcode
         #/assembler
     #/patch
@@ -64,7 +85,7 @@
             jnz     $callClimbLedge
             orgcode
         #/assembler
-		
+        
         #assembler [0x0079392B]
             mov     ecx, [esi+9C0h]
             call    0x007874C0        ; GetActionMode
@@ -103,7 +124,7 @@
             jnz     $callClimbLedge
             orgcode
         #/assembler
-		
+        
         #assembler [0x0079E1E1]
             mov     ecx, [esi+8ECh]
             call    0x007914E0        ; GetActionMode
@@ -142,7 +163,7 @@
             jnz     $callClimbLedge
             orgcode
         #/assembler
-		
+        
         #assembler [0x006876E1]
             mov     ecx, [esi+980h]
             call    0x0067A890        ; GetActionMode
