@@ -1,8 +1,8 @@
-// SWIM_2_HANG fixes for Union
+// T_SWIM_2_HANG fixes for Union
 // Created by Vaana and Auronen
 
 #engine [G1]
-    #patch [SWIM_2_HANG fix]
+    #patch [T_SWIM_2_HANG fix]
         // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x0086CCA0] ; zinput
@@ -87,7 +87,7 @@
 #/engine
 
 #engine [G1A]
-    #patch [SWIM_2_HANG fix]
+    #patch [T_SWIM_2_HANG fix]
         // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x008B2798] ; zinput
@@ -156,7 +156,7 @@
 #/engine
 
 #engine [G2]
-    #patch [SWIM_2_HANG fix]
+    #patch [T_SWIM_2_HANG fix]
         // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x008C2FF8] ; zinput
@@ -225,7 +225,7 @@
 #/engine
 
 #engine [G2A]
-    #patch [SWIM_2_HANG fix]
+    #patch [T_SWIM_2_HANG fix]
         // PC_SpecialMove
         #assembler [callClimbLedge]
             mov     ecx, [0x008D1650] ; zinput
