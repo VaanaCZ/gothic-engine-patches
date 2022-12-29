@@ -1,0 +1,52 @@
+// C_ITEMREACT fixes for Union
+// Created by Vaana
+
+#engine [G1]
+    #patch [Item react]
+        #assembler [callOpenTradeOffer]
+            mov     ecx, [ebp+98h]
+            call    0x00690000           ; oCNpc::GetFocusNpc
+            test    eax, eax
+            jz      0x0066F6F9
+            mov     ecx, [ebp+98h]
+            mov     edx, [ecx]
+            call    dword ptr [edx+100h] ; oCNpc::IsAPlayer
+            test    eax, eax
+            jz      segment0
+            mov     eax, 1
+            jmp     segment1
+            
+        segment0:
+            mov     eax, [ebp+0]
+            mov     ecx, ebp
+            call    dword ptr [eax+40h]  ; oCItemContainer::GetSelectedItem
+            mov     eax, [eax+2E4h]      ; oCItem::GetAmount
+            
+        segment1:
+            mov     ecx, [ebp+98h]
+            push    eax                  ; amount
+            call    0x00690000           ; oCNpc::GetFocusNpc
+            mov     edx, [ebp+0]
+            push    eax                  ; x
+            mov     ecx, ebp
+            call    dword ptr [edx+40h]  ; oCItemContainer::GetSelectedItem
+            mov     ecx, [ebp+98h]
+            push    eax                  ; item
+            call    0x00633BE0           ; oCNpc::OpenTradeContainer
+            mov     ecx, [ebp+98h]
+            call    0x00690000           ; oCNpc::GetFocusNpc
+            test    eax, eax
+            jz      0x0066F6F9
+            mov     ecx, [ebp+98h]
+            push    ecx                  ; player
+            mov     ecx, eax
+            call    0x00633E40           ; oCNpc::OpenTradeOffer
+            mov     eax, 1
+            jmp     0x0066F6FE
+        #/assembler
+		
+        #assembler [0x0066ED4B]
+            jz      $callOpenTradeOffer
+        #/assembler
+    #/patch
+#/engine
