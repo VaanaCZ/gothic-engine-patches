@@ -1,0 +1,153 @@
+#engine [G1] // ok
+    #patch
+        // Create a null symbol at the memory.
+        INT shi_malloc = ImportSymbol("shw32.dll", "shi_malloc")
+        #assembler [make_null_symbol]
+            push 03Ch        ; sizeof(zCPar_Symbol)
+            call $shi_malloc
+            mov ecx, eax
+            call 0x006F7D20 ; zCPar_Symbol ctor
+            add esp, 4
+            ret
+        #/assembler
+        INT symbol = make_null_symbol()
+        
+        // Check the pushed instance index.
+        // If this is a zero, it will be replaced
+        // to the flag (-2) - a true null symbol.
+        #assembler [0x006e9335]
+            orgcode
+            test eax, eax
+            jnz return
+            mov eax, 0xFFFFFFFE  ; flag null
+        return:
+        #/assembler
+        
+        // Detours of the GetSymbol index protection.
+        #assembler [0x006fa426]
+            cmp eax, 0xFFFFFFFE  ; flag null
+            jnz return
+            mov eax, $symbol
+            ret 4
+        return:
+            mov eax, 0
+            ret 4
+        #/assembler
+    #/patch
+#/engine
+
+
+#engine [G1A]
+    #patch
+        // Create a null symbol at the memory.
+        INT shi_malloc = ImportSymbol("shw32.dll", "shi_malloc")
+        #assembler [make_null_symbol]
+            push 03Ch        ; sizeof(zCPar_Symbol)
+            call $shi_malloc
+            mov ecx, eax
+            call 0x00731E80 ; zCPar_Symbol ctor
+            add esp, 4
+            ret
+        #/assembler
+        INT symbol = make_null_symbol()
+        
+        // Check the pushed instance index.
+        // If this is a zero, it will be replaced
+        // to the flag (-2) - a true null symbol.
+        #assembler [0x00722304]
+            orgcode
+            test eax, eax
+            jnz return
+            mov eax, 0xFFFFFFFE  ; flag null
+        return:
+        #/assembler
+        
+        // Detours of the GetSymbol index protection.
+        #assembler [0x007347b6]
+            cmp eax, 0xFFFFFFFE  ; flag null
+            jnz return
+            mov eax, $symbol
+            ret 4
+        return:
+            mov eax, 0
+            ret 4
+        #/assembler
+    #/patch
+#/engine
+
+
+#engine [G2] // ok
+    #patch
+        // Create a null symbol at the memory.
+        INT shi_malloc = ImportSymbol("shw32.dll", "shi_malloc")
+        #assembler [make_null_symbol]
+            push 03Ch        ; sizeof(zCPar_Symbol)
+            call $shi_malloc
+            mov ecx, eax
+            call 0x00741C50  ; zCPar_Symbol ctor
+            add esp, 4
+            ret
+        #/assembler
+        INT symbol = make_null_symbol()
+        
+        // Check the pushed instance index.
+        // If this is a zero, it will be replaced
+        // to the flag (-2) - a true null symbol.
+        #assembler [0x00732c55]
+            orgcode
+            test eax, eax
+            jnz return
+            mov eax, 0xFFFFFFFE  ; flag null
+        return:
+        #/assembler
+        
+        // Detours of the GetSymbol index protection.
+        #assembler [0x007444b6]
+            cmp eax, 0xFFFFFFFE  ; flag null
+            jnz return
+            mov eax, $symbol
+            ret 4
+        return:
+            mov eax, 0
+            ret 4
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A] // ok
+    #patch
+        // Create a null symbol at the memory.
+        INT shi_malloc = ImportSymbol("shw32.dll", "shi_malloc")
+        #assembler [make_null_symbol]
+            push 03Ch        ; sizeof(zCPar_Symbol)
+            call $shi_malloc
+            mov ecx, eax
+            call 0x007A1690  ; zCPar_Symbol ctor
+            add esp, 4
+            ret
+        #/assembler
+        INT symbol = make_null_symbol()
+        
+        // Check the pushed instance index.
+        // If this is a zero, it will be replaced
+        // to the flag (-2) - a true null symbol.
+        #assembler [0x00792695]
+            orgcode
+            test eax, eax
+            jnz return
+            mov eax, 0xFFFFFFFE  ; flag null
+        return:
+        #/assembler
+        
+        // Detours of the GetSymbol index protection.
+        #assembler [0x007A3EF6]
+            cmp eax, 0xFFFFFFFE  ; flag null
+            jnz return
+            mov eax, $symbol
+            ret 4
+        return:
+            mov eax, 0
+            ret 4
+        #/assembler
+    #/patch
+#/engine
