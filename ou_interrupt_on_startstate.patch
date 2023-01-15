@@ -18,16 +18,11 @@
             orgcode
         #/assembler
         
-        #assembler [0x006DE4BD]
-            ; Get message offset
-            mov     ecx, [ebp+30h]
-            mov     edx, [ecx+esi*4]
-            mov     eax, [ebp+0]
-            
+        #assembler [0x006DDFB3]
             ; Check is message is oCMsgConversation::EV_OUTPUTSVM_OVERLAY
-            cmp     dword ptr [edx], 0x007DE5CC ; oCMsgConversation vftable
+            cmp     dword ptr [esi], 0x007DE5CC ; oCMsgConversation vftable
             jne     deleteAsUsual
-            mov     ax, [edx+24h]               ; subType
+            mov     ax, [esi+24h]               ; subType
             cmp     ax, 12h                     ; EV_OUTPUTSVM_OVERLAY
             jne     deleteAsUsual
             
@@ -38,14 +33,14 @@
             jz      libSvmModuleStop
             
             ; Skip deletion
-            jmp     0x006DE4CC
+            jmp     0x006DDFD1
             
             ; Call LibSvmModuleStop
         libSvmModuleStop:
             mov     ecx, ds:[0x008DA6BC]        ; oCGame* ogame
             mov     eax, [ecx]
             call    dword ptr [eax+40h]
-            mov     ecx, [edx+8Ch]              ; number
+            mov     ecx, [esi+8Ch]              ; number
             mov     edx, [eax]
             push    ecx
             mov     ecx, eax
@@ -54,5 +49,19 @@
         deleteAsUsual:
             orgcode
         #/assembler
+        
+//        #assembler [0x006C33BC]
+//            ; Call LibSvmModuleStop
+//            mov     ecx, ds:[0x008DA6BC]        ; oCGame* ogame
+//            mov     eax, [ecx]
+//            call    dword ptr [eax+40h]
+//            mov     ecx, [esi+8Ch]              ; number
+//            mov     edx, [eax]
+//            push    ecx
+//            mov     ecx, eax
+//            call    dword ptr [edx+64h]
+//
+//            orgcode
+//        #/assembler
     #/patch
 #/engine
