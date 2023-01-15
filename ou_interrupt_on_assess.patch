@@ -23,43 +23,6 @@
             jnz     0x00633A03
             orgcode
         #/assembler
-        
-        
-        
-        
-        
-        BOOL g_bDontInterruptSound = False
-                
-        #assembler [0x006DE4C3]
-            cmp     dword ptr [edx], 0x007DE5CC    ; oCMsgConversation vftable
-            je      skip
-            
-            mov     eax, [edx+24h]      ; subType
-            cmp     eax, 12h    ; EV_OUTPUTSVM_OVERLAY
-            je      skip
-            
-            mov     dword ptr ds:[$g_bDontInterruptSound], 0
-            
-            orgcode
-            jmp     end
-            
-        skip:
-            mov     dword ptr ds:[$g_bDontInterruptSound], 1
-            jmp     0x006DE4CC
-            
-        end:
-            
-        #/assembler
-        
-        
-        #assembler [0x00692A5D]
-            cmp     dword ptr ds:[$g_bDontInterruptSound], 1
-//            mov     dword ptr ds:[$g_bDontInterruptSound], 0
-            je      0x00692B1B
-            
-            
-            orgcode
-        #/assembler
     #/patch
 #/engine
 

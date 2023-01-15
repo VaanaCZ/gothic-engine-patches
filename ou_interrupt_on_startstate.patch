@@ -1,0 +1,68 @@
+// AI fixes for Union
+// created by Auronen, Fawkes and Vaana
+
+#engine [G1]
+    #patch [Fixed SVM interrupt on certain perceptions]
+//        BOOL g_bDontInterruptSound = False
+//        
+//        #assembler [asdasd]
+//            mov     dword ptr ds:[$g_bDontInterruptSound], 1
+//            jmp     0x006DE4CC
+//        #/assembler
+//        
+//        #assembler [0x006DE4C3]
+//            cmp     dword ptr [edx], 0x007DE5CC    ; oCMsgConversation vftable
+//            je      $asdasd
+//            
+//            mov     eax, [edx+24h]      ; subType
+//            cmp     eax, 12h    ; EV_OUTPUTSVM_OVERLAY
+//            je      $asdasd
+//            
+//            mov     dword ptr ds:[$g_bDontInterruptSound], 0
+//            
+//            orgcode
+//        #/assembler
+//        
+//        
+//        #assembler [0x00692A5D]
+//            cmp     dword ptr ds:[$g_bDontInterruptSound], 1
+//            je      0x00692B1B
+//            
+//            
+//            orgcode
+//        #/assembler
+
+
+        
+        #assembler [0x006DE4BD]
+        
+            ; Get message offset
+            mov     ecx, [ebp+30h]
+            mov     edx, [ecx+esi*4]
+            mov     eax, [ebp+0]
+
+            ; Check class
+            cmp     dword ptr [edx], 0x007DE5CC    ; oCMsgConversation vftable
+            jne     skip
+            
+            ; Check subType
+            mov     eax, [edx+24h]      ; subType
+            cmp     eax, 12h            ; EV_OUTPUTSVM_OVERLAY
+            jne     skip
+            
+            ; Call LibSvmModuleStop
+            mov     ecx, ds:[0x008DA6BC] ; oCGame* ogame
+            mov     edx, [ecx]
+            call    dword ptr [edx+40h]
+            mov     ecx, [esi+8Ch]       ; number
+            mov     edx, [eax]
+            push    ecx
+            mov     ecx, eax
+            call    dword ptr [edx+64h]
+            
+        skip:
+            
+            orgcode
+        #/assembler
+    #/patch
+#/engine
