@@ -33,45 +33,44 @@
 //        #/assembler
 
 
-//        #assembler [0x006DE4BD]
-//            ; Get message offset
-//            mov     ecx, [ebp+30h]
-//            mov     edx, [ecx+esi*4]
-//            mov     eax, [ebp+0]
-//
-//            ; Check class
-//            cmp     dword ptr [edx], 0x007DE5CC    ; oCMsgConversation vftable
-//            jne     skip
-//            
-//            ; Check subType
-//            //mov     ax, [edx+24h]      ; subType
-//            //cmp     ax, 12h            ; EV_OUTPUTSVM_OVERLAY
-//            //jnz     skip
-//            
-//            ; Call LibSvmModuleStop
-//            mov     eax, [edx+8Ch]       ; number
-//            mov     ecx, ds:[0x008DA6BC] ; oCGame* ogame
-//            mov     edx, [ecx]
-//            call    dword ptr [edx+40h]
-//            mov     ecx, eax             ; number
-//            mov     edx, [eax]
-//            push    ecx
-//            mov     ecx, eax
-//            call    dword ptr [edx+64h]
-//            
-//        skip:
-//            
-//            orgcode
-//        #/assembler
+        #assembler [0x006DE4BD]
+            ; Get message offset
+            mov     ecx, [ebp+30h]
+            mov     edx, [ecx+esi*4]
+            mov     eax, [ebp+0]
+
+            ; Check class
+            cmp     dword ptr [edx], 0x007DE5CC    ; oCMsgConversation vftable
+            jne     delete
+            
+            ; Check subType
+            mov     ax, [edx+24h]      ; subType
+            cmp     ax, 12h            ; EV_OUTPUTSVM_OVERLAY
+            jne     delete
+            
+            ; Call LibSvmModuleStop
+            mov     eax, [edx+8Ch]       ; number
+            mov     ecx, ds:[0x008DA6BC] ; oCGame* ogame
+            mov     edx, [ecx]
+            call    dword ptr [edx+40h]
+            mov     ecx, eax             ; number
+            mov     edx, [eax]
+            push    ecx
+            mov     ecx, eax
+            call    dword ptr [edx+64h]
+            
+        delete:
+            orgcode
+        #/assembler
 
         BOOL g_bDontInterruptSound = False
-		
+        
         #assembler [0x006A803E]
             mov     dword ptr ds:[$g_bDontInterruptSound], 1
             orgcode
             mov     dword ptr ds:[$g_bDontInterruptSound], 0
         #/assembler
-		
+        
         #assembler [0x00692A5D]
             mov     eax, dword ptr ds:[$g_bDontInterruptSound]
             test    eax, eax
