@@ -17,6 +17,9 @@
             push    eax
             mov     ecx, esi
             call    0x0041BA30                  ; LibGet
+            cmp     eax, 0
+            jz      return
+            
             mov     ecx, eax
             mov     eax, [ecx]
             call    dword ptr [eax+18h]         ; GetRoleName
@@ -28,10 +31,21 @@
             mov     ecx, $memString
             call    0x00466230                  ; zSTRING::Insert
             
-            ; Get sound subsystem
+            ; Load sound
             mov     ecx, ds:[0x008CEE4C]        ; zCSoundSystem* zsound
-            cmp     dword ptr [ecx], 0x007D306C ; zCSndSys_MSS vftable
+            push    $memString
+            mov     eax, [ecx]
+            call    dword ptr [eax+4h]          ; LoadSoundFX
+            cmp     eax, 0
+            jz      return
+            
+            ; Check if the sound is of type zCSndFX_MSS
+            cmp     dword ptr [eax], 0x007D317C ; zCSndSys_MSS vftable
             jne     return
+            
+            
+            
+            
             
             pop     ecx
             pop     esi
