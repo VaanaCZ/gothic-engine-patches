@@ -6,22 +6,16 @@
         // libSvmModuleList fix
         INT memString = CreateMemString(".WAV")
         #assembler [0x00419980]
-            
-            push    eax
-            push    esi
-            mov     esi, ecx
-            push    ecx
-        
             ; Get SVM name
-            mov     eax, [esp+30h]
+            mov     eax, [esp+4h]
             push    eax
-            mov     ecx, esi
             call    0x0041BA30                  ; zCCSManager::LibGet
             cmp     eax, 0
             jz      return
             
             mov     ecx, eax
             mov     eax, [ecx]
+            push    ecx
             call    dword ptr [eax+18h]         ; zCCSBlock::GetRoleName
             
             ; Append name with .WAV
@@ -40,29 +34,16 @@
             jz      return
             
             ; Check if the sound is of type zCSndFX_MSS
-            cmp     dword ptr [eax], 0x007D317C ; zCSndSys_MSS vftable
+            cmp     dword ptr [eax], 0x007D317C ; zCSndFX_MSS vftable
             jne     return
             
             ; Check if sound is active
             mov     ecx, eax
             call    0x004E8040                  ; zCSndFX_MSS::IsActive
             
-            
-            
-            
-            //pop     ecx
-            //pop     esi
-            //pop     eax
-            //
-            //mov     eax, 1
             ret     4
-            
         return:
-            pop     ecx
-            pop     esi
-            pop     eax
-            
-            mov     eax, 0
+            xor     eax, eax
             ret     4
         #/assembler
         
