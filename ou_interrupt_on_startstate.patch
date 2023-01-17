@@ -2,7 +2,64 @@
 // created by Auronen, Fawkes and Vaana
 
 #engine [G1]
-    #patch [Fixed SVM interrupt on certain perceptions]´
+    #patch [Fixed SVM interrupt on certain perceptions]
+        // libSvmModuleList fix
+        INT memString = CreateMemString(".WAV")
+        #assembler [0x00419980]
+            
+            push    eax
+            push    esi
+            mov     esi, ecx
+            push    ecx
+        
+            ; Get SVM name
+            mov     eax, [esp+30h]
+            push    eax
+            mov     ecx, esi
+            call    0x0041BA30                  ; LibGet
+            mov     ecx, eax
+            mov     eax, [ecx]
+            call    dword ptr [eax+18h]         ; GetRoleName
+            
+            ; Append name with .WAV
+            push    eax
+            xor     eax, eax
+            push    eax
+            mov     ecx, $memString
+            call    0x00466230                  ; zSTRING::Insert
+            
+            ; Get sound subsystem
+            mov     ecx, ds:[0x008CEE4C]        ; zCSoundSystem* zsound
+            cmp     dword ptr [ecx], 0x007D306C ; zCSndSys_MSS vftable
+            jne     return
+            
+            pop     ecx
+            pop     esi
+            pop     eax
+            
+            mov     eax, 1
+            ret     4
+            
+        return:
+            pop     ecx
+            pop     esi
+            pop     eax
+            
+            mov     eax, 0
+            ret     4
+        #/assembler
+        
+        #assembler [0x00419AC0]
+            mov     eax, 1
+            ret     4
+        #/assembler
+        
+        #assembler [0x00419C60]
+            mov     eax, 1
+            ret     4
+        #/assembler
+        
+        // EV_DoState fix
         BOOL g_bDontInterruptSound = False
         
         #assembler [0x006A803E]
@@ -18,37 +75,37 @@
             orgcode
         #/assembler
         
-        #assembler [0x006DDFB3]
-            ; Check is message is oCMsgConversation::EV_OUTPUTSVM_OVERLAY
-            cmp     dword ptr [esi], 0x007DE5CC ; oCMsgConversation vftable
-            jne     deleteAsUsual
-            mov     ax, [esi+24h]               ; subType
-            cmp     ax, 12h                     ; EV_OUTPUTSVM_OVERLAY
-            jne     deleteAsUsual
-            
-            ; If we are in EV_DoState, skip deletion
-            ; Otherwise, stop the SVM module
-            mov     eax, dword ptr ds:[$g_bDontInterruptSound]
-            test    eax, eax
-            jz      libSvmModuleStop
-            
-            ; Skip deletion
-            jmp     0x006DDFD1
-            
-            ; Call LibSvmModuleStop
-        libSvmModuleStop:
-            mov     ecx, ds:[0x008DA6BC]        ; oCGame* ogame
-            mov     eax, [ecx]
-            call    dword ptr [eax+40h]
-            mov     ecx, [esi+8Ch]              ; number
-            mov     edx, [eax]
-            push    ecx
-            mov     ecx, eax
-            call    dword ptr [edx+64h]
-            
-        deleteAsUsual:
-            orgcode
-        #/assembler
+        //#assembler [0x006DDFB3]
+        //    ; Check is message is oCMsgConversation::EV_OUTPUTSVM_OVERLAY
+        //    cmp     dword ptr [esi], 0x007DE5CC ; oCMsgConversation vftable
+        //    jne     deleteAsUsual
+        //    mov     ax, [esi+24h]               ; subType
+        //    cmp     ax, 12h                     ; EV_OUTPUTSVM_OVERLAY
+        //    jne     deleteAsUsual
+        //    
+        //    ; If we are in EV_DoState, skip deletion
+        //    ; Otherwise, stop the SVM module
+        //    mov     eax, dword ptr ds:[$g_bDontInterruptSound]
+        //    test    eax, eax
+        //    jz      libSvmModuleStop
+        //    
+        //    ; Skip deletion
+        //    jmp     0x006DDFD1
+        //    
+        //    ; Call LibSvmModuleStop
+        //libSvmModuleStop:
+        //    mov     ecx, ds:[0x008DA6BC]        ; oCGame* ogame
+        //    mov     eax, [ecx]
+        //    call    dword ptr [eax+40h]
+        //    mov     ecx, [esi+8Ch]              ; number
+        //    mov     edx, [eax]
+        //    push    ecx
+        //    mov     ecx, eax
+        //    call    dword ptr [edx+64h]
+        //    
+        //deleteAsUsual:
+        //    orgcode
+        //#/assembler
         
 //        #assembler [0x006C33BC]
 //            ; Call LibSvmModuleStop
