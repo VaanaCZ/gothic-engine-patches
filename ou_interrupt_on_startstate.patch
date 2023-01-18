@@ -2,7 +2,7 @@
 // created by Auronen, Fawkes and Vaana
 
 #engine [G1]
-    #patch [Fixed libSvmModuleList problems]
+    #patch [libSvmModuleList fix]
         INT memString = CreateMemString("")
         HEX wavAppend = '2E 57 41 56 00'
         #assembler [0x00419980]
@@ -53,7 +53,7 @@
         HEX @0x00419AC0 = 'B8 01 00 00 00 C2 04 00'
         HEX @0x00419C60 = 'B8 01 00 00 00 C2 04 00'
     #/patch
-        
+    
     #patch [Fixed SVM interrupt on EV_DoState]
         BOOL g_bDontInterruptSound = False
         
