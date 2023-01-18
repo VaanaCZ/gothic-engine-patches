@@ -70,7 +70,7 @@
             mov     dword ptr ds:[$g_bDontInterruptSound], 0
         #/assembler
         
-        #assembler [0x00692A5D]
+        #assembler [0x00692ABB]
             mov     eax, dword ptr ds:[$g_bDontInterruptSound]
             test    eax, eax
             jnz     0x00692B1B
