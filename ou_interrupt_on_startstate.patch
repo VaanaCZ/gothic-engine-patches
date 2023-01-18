@@ -71,3 +71,74 @@
         #/assembler
     #/patch
 #/engine
+
+#engine [G1A]
+    #patch [libSvmModuleList fix]
+        INT memString = CreateMemString("")
+        HEX wavAppend = '2E 57 41 56 00'
+        #assembler [0x0041B900]
+            ; Get SVM
+            mov     eax, [esp+4h]
+            push    eax
+            call    0x0041D900                  ; zCCSManager::LibGet
+            
+            ; Check if SVM was found
+            cmp     eax, 0
+            jz      return
+            
+            ; Get SVM name
+            mov     ecx, eax
+            mov     eax, [ecx]
+            push    $memString
+            call    dword ptr [eax+18h]         ; zCCSBlock::GetRoleName
+            
+            ; Append name with .WAV
+            mov     ecx, $memString
+            push    $wavAppend
+            call    0x0066C7D0                  ; zSTRING::operator+=(char const *)
+            
+            ; Load sound
+            mov     ecx, ds:[0x00914D14]        ; zCSoundSystem* zsound
+            push    $memString
+            mov     eax, [ecx]
+            call    dword ptr [eax+4h]          ; zCSoundSystem::LoadSoundFX
+            
+            ; Check if sound was found
+            cmp     eax, 0
+            jz      return
+            
+            ; Check if the sound is of type zCSndFX_MSS
+            cmp     dword ptr [eax], 0x00816134 ; zCSndFX_MSS vftable
+            jne     return
+            
+            ; Check if sound is active
+            mov     ecx, eax
+            call    0x004FA220                  ; zCSndFX_MSS::IsActive
+            
+            ret     4
+        return:
+            xor     eax, eax
+            ret     4
+        #/assembler
+        
+        HEX @0x0041BA90 = 'B8 01 00 00 00 C2 04 00'
+        HEX @0x0041BC30 = 'B8 01 00 00 00 C2 04 00'
+    #/patch
+    
+    #patch [Fixed SVM interrupt on EV_DoState]
+        BOOL g_bDontInterruptSound = False
+        
+        #assembler [0x006DACA1]
+            mov     dword ptr ds:[$g_bDontInterruptSound], 1
+            orgcode
+            mov     dword ptr ds:[$g_bDontInterruptSound], 0
+        #/assembler
+        
+        #assembler [0x006C4185]
+            mov     eax, dword ptr ds:[$g_bDontInterruptSound]
+            test    eax, eax
+            jnz     0x006C41E5
+            orgcode
+        #/assembler
+    #/patch
+#/engine
