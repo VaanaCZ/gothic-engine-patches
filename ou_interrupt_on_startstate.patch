@@ -4,32 +4,36 @@
 #engine [G1]
     #patch [Fixed SVM interrupt on certain perceptions]
         // libSvmModuleList fix
-        INT memString = CreateMemString(".WAV")
+        INT memString = CreateMemString("")
+        HEX wavAppend = '2E 57 41 56 00'
         #assembler [0x00419980]
-            ; Get SVM name
+            ; Get SVM
             mov     eax, [esp+4h]
             push    eax
             call    0x0041BA30                  ; zCCSManager::LibGet
+            
+            ; Check if SVM was found
             cmp     eax, 0
             jz      return
             
+            ; Get SVM name
             mov     ecx, eax
             mov     eax, [ecx]
-            push    ecx
+            push    $memString
             call    dword ptr [eax+18h]         ; zCCSBlock::GetRoleName
             
             ; Append name with .WAV
-            push    eax
-            xor     eax, eax
-            push    eax
             mov     ecx, $memString
-            call    0x00466230                  ; zSTRING::Insert
+            push    $wavAppend
+            call    0x00644ED0                  ; zSTRING::operator+=(char const *)
             
             ; Load sound
             mov     ecx, ds:[0x008CEE4C]        ; zCSoundSystem* zsound
             push    $memString
             mov     eax, [ecx]
             call    dword ptr [eax+4h]          ; zCSoundSystem::LoadSoundFX
+            
+            ; Check if sound was found
             cmp     eax, 0
             jz      return
             
