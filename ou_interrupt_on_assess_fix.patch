@@ -53,22 +53,24 @@
 
 #engine [G2]
     #patch [Fixed SVM interrupt on certain perceptions]
+        BOOL @g_bDontKillOUSound = 0x009831F0
         // AssessEnterRoom_S
         #assembler [0x006DFC40]
-            mov     dword ptr ds:[0x009831F0], 1
+            mov     dword ptr ds:[$g_bDontKillOUSound], 1
             orgcode
-            mov     dword ptr ds:[0x009831F0], 0
+            mov     dword ptr ds:[$g_bDontKillOUSound], 0
         #/assembler
     #/patch
 #/engine
 
 #engine [G2A]
     #patch [Fixed SVM interrupt on certain perceptions]
+        BOOL @g_bDontKillOUSound = 0x00AB2698
         // AssessEnterRoom_S
         #assembler [0x0073E530]
-            mov     dword ptr ds:[0x00AB2698], 1
+            mov     dword ptr ds:[$g_bDontKillOUSound], 1
             orgcode
-            mov     dword ptr ds:[0x00AB2698], 0
+            mov     dword ptr ds:[$g_bDontKillOUSound], 0
         #/assembler
     #/patch
 #/engine
