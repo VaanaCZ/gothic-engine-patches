@@ -1,15 +1,20 @@
 // zCMover collision fix
 // Created by Vaana
+// Implemenets an additional check in CanThisCollideWith
+// to fix issues with movers. Ported straight from Gothic 2.
+
 
 #engine [G1]
     #patch [zCMover collision fix]
         #assembler [0x005E438A]
             test    byte ptr [esi+0E4h], 10h
-            jz      0x005E438A
+            jz      return
             pop     edi
             xor     eax, eax
             pop     esi
             ret     4
+        return:
+            orgcode
         #/assembler
     #/patch
 #/engine
@@ -18,11 +23,13 @@
     #patch [zCMover collision fix]
         #assembler [0x0060431A]
             test    byte ptr [esi+0E4h], 10h
-            jz      0x0060431A
+            jz      return
             pop     edi
             xor     eax, eax
             pop     esi
             ret     4
+        return:
+            orgcode
         #/assembler
     #/patch
 #/engine
