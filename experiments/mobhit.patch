@@ -1,0 +1,10 @@
+// C_ITEMREACT fixes for Union
+// Created by Vaana
+
+#engine [G1]
+    #patch [AAAA]
+        #assembler [0x0067ACE0]
+            call 0x0067B050
+        #/assembler
+    #/patch
+#/engine

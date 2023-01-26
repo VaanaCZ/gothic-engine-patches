@@ -1,0 +1,28 @@
+// zCMover collision fix
+// Created by Vaana
+
+#engine [G1]
+    #patch [zCMover collision fix]
+        #assembler [0x005E438A]
+            test    byte ptr [esi+0E4h], 10h
+            jz      0x005E438A
+            pop     edi
+            xor     eax, eax
+            pop     esi
+            ret     4
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G1A]
+    #patch [zCMover collision fix]
+        #assembler [0x0060431A]
+            test    byte ptr [esi+0E4h], 10h
+            jz      0x0060431A
+            pop     edi
+            xor     eax, eax
+            pop     esi
+            ret     4
+        #/assembler
+    #/patch
+#/engine
