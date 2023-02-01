@@ -1,11 +1,38 @@
-// HUMANS_CARRY fixes for Union
-// Created by Vaana
+// HumanS_Carry fixes for Union
+// created by Vaana
 
 #engine [G1]
-    #patch [ONE_BUTTON_CONTROL]
-        IF BOOL @SYSTEMPACK:PARAMETERS:Gothic2_Control
-            HEX @0x00612C46 = '0F 84 D0 00 00 00' ; oCMOB EV_TAKEVOB fix
-            HEX @0x00612C5A = '0F 84 BC 00 00 00' ; oCMOB EV_TAKEVOB fix
-        END
+    #patch [Focus fix]
+        // mob
+        #assembler [0x006910CF]
+			; Check right hand
+            mov     ecx, edi
+            call    0x00697750  ; oCNpc::GetRightHand
+            cmp     eax, esi
+            jz      0x006911E5
+			
+			; Check left hand
+            mov     ecx, edi
+            call    0x006977E0  ; oCNpc::GetLeftHand
+            cmp     eax, esi
+            jz      0x006911E5
+            orgcode
+        #/assembler
+		
+        // nsc
+        #assembler [0x00691015]
+			; Check right hand
+            mov     ecx, edi
+            call    0x00697750  ; oCNpc::GetRightHand
+            cmp     eax, esi
+            jz      0x006911E5
+			
+			; Check left hand
+            mov     ecx, edi
+            call    0x006977E0  ; oCNpc::GetLeftHand
+            cmp     eax, esi
+            jz      0x006911E5
+            orgcode
+        #/assembler
     #/patch
 #/engine

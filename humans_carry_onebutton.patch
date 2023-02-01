@@ -1,0 +1,11 @@
+// HUMANS_CARRY fixes for Union
+// Created by Vaana
+
+#engine [G1]
+    #patch [ONE_BUTTON_CONTROL]
+        IF BOOL @SYSTEMPACK:PARAMETERS:Gothic2_Control
+            HEX @0x00612C46 = '0F 84 D0 00 00 00' ; oCMOB EV_TAKEVOB fix
+            HEX @0x00612C5A = '0F 84 BC 00 00 00' ; oCMOB EV_TAKEVOB fix
+        END
+    #/patch
+#/engine
