@@ -2,36 +2,68 @@
 // created by Vaana
 
 #engine [G1]
-    #patch [Focus fix]
-        // mob
+    #patch [HumanS_Carry fix]
+        // Disable focus for items which are in hand
+        // This is already done for oCItem
+        
+        // oCMOB
         #assembler [0x006910CF]
-			; Check right hand
+            ; Check right hand
             mov     ecx, edi
             call    0x00697750  ; oCNpc::GetRightHand
             cmp     eax, esi
             jz      0x006911E5
-			
-			; Check left hand
+            
+            ; Check left hand
             mov     ecx, edi
             call    0x006977E0  ; oCNpc::GetLeftHand
             cmp     eax, esi
             jz      0x006911E5
             orgcode
         #/assembler
-		
-        // nsc
+        
+        // oCNpc
         #assembler [0x00691015]
-			; Check right hand
+            ; Check right hand
             mov     ecx, edi
             call    0x00697750  ; oCNpc::GetRightHand
             cmp     eax, esi
             jz      0x006911E5
-			
-			; Check left hand
+            
+            ; Check left hand
             mov     ecx, edi
             call    0x006977E0  ; oCNpc::GetLeftHand
             cmp     eax, esi
             jz      0x006911E5
+            orgcode
+        #/assembler
+        
+        // Clear focus when a mob is picked up
+        // This is already done for oCItem
+        
+        // oCMOB
+        #assembler [0x006A10AF]
+            mov     ecx, [edi+9E4h]
+            cmp     esi, ecx
+            jnz     return
+            test    ecx, ecx
+            jz      return
+            call    0x0042AC30              ; zCObject::Release
+            mov     dword ptr [edi+9E4h], 0
+        return:
+            orgcode
+        #/assembler
+        
+        // oCNpc
+        #assembler [0x006A0F2A]
+            mov     ecx, [edi+9E4h]
+            cmp     esi, ecx
+            jnz     return
+            test    ecx, ecx
+            jz      return
+            call    0x0042AC30              ; zCObject::Release
+            mov     dword ptr [edi+9E4h], 0
+        return:
             orgcode
         #/assembler
     #/patch
