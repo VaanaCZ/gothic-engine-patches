@@ -68,3 +68,71 @@
         #/assembler
     #/patch
 #/engine
+
+#engine [G1A]
+    #patch [HumanS_Carry fix]
+        // Disable focus for items which are in hand
+        // This is already done for oCItem
+        
+        // oCMOB
+        #assembler [0x006C2653]
+            ; Check right hand
+            mov     ecx, ebx
+            call    0x006C9360  ; oCNpc::GetRightHand
+            cmp     eax, esi
+            jz      0x006C2770
+            
+            ; Check left hand
+            mov     ecx, ebx
+            call    0x006C9400  ; oCNpc::GetLeftHand
+            cmp     eax, esi
+            jz      0x006C2770
+            orgcode
+        #/assembler
+        
+        // oCNpc
+        #assembler [0x006C258D]
+            ; Check right hand
+            mov     ecx, ebx
+            call    0x006C9360  ; oCNpc::GetRightHand
+            cmp     eax, esi
+            jz      0x006C2770
+            
+            ; Check left hand
+            mov     ecx, ebx
+            call    0x006C9400  ; oCNpc::GetLeftHand
+            cmp     eax, esi
+            jz      0x006C2770
+            orgcode
+        #/assembler
+        
+        // Clear focus when a mob is picked up
+        // This is already done for oCItem
+        
+        // oCMOB
+        #assembler [0x006D37EE]
+            mov     ecx, [edi+9ECh]
+            cmp     esi, ecx
+            jnz     return
+            test    ecx, ecx
+            jz      return
+            call    0x0042DB30              ; zCObject::Release
+            mov     dword ptr [edi+9ECh], 0
+        return:
+            orgcode
+        #/assembler
+        
+        // oCNpc
+        #assembler [0x006D3654]
+            mov     ecx, [edi+9ECh]
+            cmp     esi, ecx
+            jnz     return
+            test    ecx, ecx
+            jz      return
+            call    0x0042DB30              ; zCObject::Release
+            mov     dword ptr [edi+9ECh], 0
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
