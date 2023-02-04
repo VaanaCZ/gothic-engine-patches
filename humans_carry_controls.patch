@@ -10,6 +10,13 @@
     #/patch
 #/engine
 
+#engine [G1A]
+    #patch [Alternative key combination for EV_TakeVob]
+        HEX @0x00634DDD = '06'    // Check for GAME_SLOW
+        HEX @0x00634DEE = 'EB 13' // Skip Toggled call
+    #/patch
+#/engine
+
 #engine [G2]
     #patch [Alternative key combination for EV_TakeVob]
         HEX @0x0063BC4F = '06'    // Check for GAME_SLOW
