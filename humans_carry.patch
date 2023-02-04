@@ -149,6 +149,21 @@
         return:
             orgcode
         #/assembler
+        
+        // Disable EV_TakeVob if you already
+        // have an item in your right hand
+        
+        #assembler [0x006E122E]
+            mov     ecx, esi
+            call    0x006C9360              ; oCNpc::GetRightHand
+            test    eax, eax
+            jz      return
+            mov     edi, [esp+68h]
+            mov     dword ptr [edi+74h], 0
+            jmp     0x006E126D
+        return:
+            orgcode
+        #/assembler
     #/patch
 #/engine
 
@@ -217,6 +232,21 @@
         return:
             orgcode
         #/assembler
+        
+        // Disable EV_TakeVob if you already
+        // have an item in your right hand
+        
+        #assembler [0x006F475E]
+            mov     ecx, esi
+            call    0x006DC390              ; oCNpc::GetRightHand
+            test    eax, eax
+            jz      return
+            mov     edi, [esp+50h]
+            mov     dword ptr [edi+6Ch], 0
+            jmp     0x006F479D
+        return:
+            orgcode
+        #/assembler
     #/patch
 #/engine
 
@@ -282,6 +312,21 @@
             jz      return
             call    0x0040C310              ; zCObject::Release
             mov     dword ptr [edi+9ACh], 0
+        return:
+            orgcode
+        #/assembler
+        
+        // Disable EV_TakeVob if you already
+        // have an item in your right hand
+        
+        #assembler [0x0075354C]
+            mov     ecx, esi
+            call    0x0073AB50              ; oCNpc::GetRightHand
+            test    eax, eax
+            jz      return
+            mov     edi, [ebp+8h]
+            mov     dword ptr [edi+6Ch], 0
+            jmp     0x007536CC
         return:
             orgcode
         #/assembler
