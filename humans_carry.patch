@@ -320,7 +320,7 @@
         // have an item in your right hand
         
         #assembler [0x0075354C]
-            mov     ecx, esi
+            mov     ecx, ebx
             call    0x0073AB50              ; oCNpc::GetRightHand
             test    eax, eax
             jz      return
