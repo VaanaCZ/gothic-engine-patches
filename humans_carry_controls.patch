@@ -10,6 +10,20 @@
     #/patch
 #/engine
 
+
+
+
+
+
+#engine [G1]
+    #patch [Alternative key combination for EV_TakeVob]
+        IF BOOL @SYSTEMPACK:PARAMETERS:Gothic2_Control
+            HEX @0x00611CE8 = '06'    // Check for GAME_SLOW
+            HEX @0x00611CF9 = 'EB 13' // Skip Toggled call
+        END
+    #/patch
+#/engine
+
 #engine [G1A]
     #patch [Alternative key combination for EV_TakeVob]
         HEX @0x00634DDD = '06'    // Check for GAME_SLOW
