@@ -66,6 +66,21 @@
         return:
             orgcode
         #/assembler
+        
+        // Disable EV_TakeVob if you already
+        // have an item in your right hand
+        
+        #assembler [0x006ADACE]
+            mov     ecx, esi
+            call    0x00697750              ; oCNpc::GetRightHand
+            test    eax, eax
+            jz      return
+            mov     edi, [esp+50h]
+            mov     dword ptr [edi+6Ch], 0
+            jmp     0x006ADB0D
+        return:
+            orgcode
+        #/assembler
     #/patch
 #/engine
 
