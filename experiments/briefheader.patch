@@ -16,7 +16,7 @@
     #/patch
 #/engine
 
-#engine [G2]
+#engine [G2A]
     #patch [Gothic 2 briefheader]
         HEX @0x0051A75A = '90 E9'
     #/patch
