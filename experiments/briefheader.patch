@@ -1,0 +1,23 @@
+#engine [0x6C370582] Spacer_1
+    #patch [Spacer briefheader]
+        HEX @0x004AF816 = '90 E9'
+    #/patch
+#/engine
+
+#engine [G1]
+    #patch [Gothic briefheader]
+        HEX @0x0050A8EA = '90 E9'
+    #/patch
+#/engine
+
+#engine [0xB1B45718] Spacer_2
+    #patch [Spacer 2 briefheader]
+        HEX @0x006A630A = '90 E9'
+    #/patch
+#/engine
+
+#engine [G2]
+    #patch [Gothic 2 briefheader]
+        HEX @0x0051A75A = '90 E9'
+    #/patch
+#/engine
