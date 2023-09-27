@@ -1,0 +1,58 @@
+#engine [0x6C370582] Spacer_1
+    #patch [Spacer lightmaps]
+        BOOL g_bIsInCompileLightMode = False
+        // zCWorld::GenerateStaticWorldLighting
+        #assembler [0x005AD845]
+            mov     dword ptr ds:[$g_bIsInCompileLightMode], 1
+            orgcode
+        #/assembler
+        #assembler [0x005AD872]
+            mov     dword ptr ds:[$g_bIsInCompileLightMode], 0
+            orgcode
+        #/assembler
+        
+        // zCBspBase::CheckRayAgainstPolys
+        #assembler [0x004C4D95]
+            test    byte ptr [eax+6Ch], 10h
+            jz      0x004C4DBB
+            cmp     dword ptr ds:[$g_bIsInCompileLightMode], 0
+            jnz     0x004C4DBB
+            jmp     0x004C4D9B
+
+//            jmp      0x004C4DBB
+        #/assembler
+        
+        // zCBspBase::CheckRayAgainstPolysNearestHit
+        #assembler [0x004C4EF6]
+            test    byte ptr [eax+6Ch], 10h
+            jz      0x004C4EFC
+            cmp     dword ptr ds:[$g_bIsInCompileLightMode], 0
+            jz      0x004C4F1E
+            jmp     0x004C4EFC
+
+//            jmp      0x004C4EFC
+        #/assembler
+        
+        // zCBspBase::CheckRayAgainstPolysCache
+        #assembler [0x004C50A0]
+            test    byte ptr [eax+6Ch], 10h
+            jz      0x004C50A6
+            cmp     dword ptr ds:[$g_bIsInCompileLightMode], 0
+            jz      0x004C50CC
+            jmp     0x004C50A6
+
+//            jmp      0x004C50A6
+        #/assembler
+        
+        // zCProgMeshProto::TraceRay
+        #assembler [0x005504CD]
+            test    byte ptr [eax+6Ch], 10h
+            jz      0x005504D7
+            cmp     dword ptr ds:[$g_bIsInCompileLightMode], 0
+            jz      0x005505C4
+            jmp     0x005504D7
+
+//            jmp      0x005504D7
+        #/assembler
+    #/patch
+#/engine
