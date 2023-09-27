@@ -16,8 +16,8 @@
             test    byte ptr [eax+6Ch], 10h
             jz      0x004C4DBB
             cmp     dword ptr ds:[$g_bIsInCompileLightMode], 0
-            jnz     0x004C4DBB
-            jmp     0x004C4D9B
+            jz      0x004C4D9B
+            jmp     0x004C4DBB
 
 //            jmp      0x004C4DBB
         #/assembler
