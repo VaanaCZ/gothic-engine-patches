@@ -1,6 +1,5 @@
 #engine [0x6C370582] Spacer_1
     #patch [Spacer LoDs]
-        BOOL g_bIsInCompileLightMode = False
         // zCCBspNode::LODGenerate
         #assembler [0x004CE4E0]
             ret    4
