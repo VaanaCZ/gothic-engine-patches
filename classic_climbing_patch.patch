@@ -1,0 +1,22 @@
+// Fix for broken Gothic 2 Classic climbing mechanics (yes, it really are broken)
+//
+// In Sequel and G2 Classic, there is a feature where if the hero
+// stands up next to a ledge that is climbable, their head will
+// tilt up to look at it. Problem is the game keeps requerying the
+// climbable ledges while the hero is already in the air, meaning
+// that if any ledge suddenly becomes reachable, the hero will
+// change to climbing it instead.
+//
+// I won't bother porting this fix to Sequel
+
+#engine [G2]
+    #patch [Gothic 2 Classic climbing fix]
+        #assembler [0x0063E82B]
+            mov     ecx, esi
+            call    0x00651660      ; oCAniCtrl_Human::IsStanding
+            test    eax, eax
+            jz      0x0063E85C
+            orgcode
+        #/assembler
+    #/patch
+#/engine
