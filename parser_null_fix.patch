@@ -1,7 +1,7 @@
 // Fixes cases where NULL in the scripts isnt actually NULL
 // Fixes NPCs in smalltalk turning north and talking to
-// themselves. 
-// Created by Auronen 
+// themselves.
+// Created by Auronen
 
 #engine [G1] // ok
     #patch

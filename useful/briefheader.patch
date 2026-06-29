@@ -1,3 +1,7 @@
+// Enforces the briefheader option when saving ZENs
+// so USER and TIME will not appear.
+// Created by Vaana
+
 #engine [0x6C370582] Spacer_1
     #patch [Spacer briefheader]
         HEX @0x004AF816 = '90 E9'

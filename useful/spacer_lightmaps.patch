@@ -1,13 +1,18 @@
+// Allows you to change lightmap grid size when compiling light
+// Default Gothic 1 values are 50 and 20, but I have set
+// them to Gothic 2 values here.
+// Created by Vaana
+
 #engine [0x6C370582] Spacer_1
     #patch [Spacer lightmaps]
-        FLOAT @0x008CE150 = 25.0	// zLIGHTMAP_GRID_DEFAULT
-        FLOAT @0x008CE154 = 10.0	// zLIGHTMAP_FILTER_INTENS_THRESH
+        FLOAT @0x008CE150 = 25.0	// zLIGHTMAP_GRID_DEFAULT (default 50)
+        FLOAT @0x008CE154 = 10.0	// zLIGHTMAP_FILTER_INTENS_THRESH (default 20)
     #/patch
 #/engine
 
 #engine [0xB1B45718] Spacer_2
     #patch [Spacer lightmaps]
-        FLOAT @0x008F9334 = 25.0	// zLIGHTMAP_GRID_DEFAULT
-        FLOAT @0x008F9338 = 10.0	// zLIGHTMAP_FILTER_INTENS_THRESH
+        FLOAT @0x008F9334 = 25.0	// zLIGHTMAP_GRID_DEFAULT (default 25)
+        FLOAT @0x008F9338 = 10.0	// zLIGHTMAP_FILTER_INTENS_THRESH (default 10)
     #/patch
 #/engine

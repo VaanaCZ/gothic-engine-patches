@@ -1,3 +1,6 @@
+// Completely disables the generation of worldmesh LoDs
+// Created by Vaana
+
 #engine [0x6C370582] Spacer_1
     #patch [Spacer LoDs]
         // zCCBspNode::LODGenerate
