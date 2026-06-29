@@ -1,0 +1,40 @@
+// When hero transforms back from a monster
+// it will change the weapons he had equipped
+// before transforming. This patch disables it.
+// Created by Vaana
+
+#engine [G1]
+#/engine
+
+#engine [G1A]
+#/engine
+
+#engine [G2]
+    #patch [Disable EquipBestWeapon after transform for player]
+        INT heroString = CreateMemString("PC_HERO")
+        #assembler [0x006E7522]
+            mov     ecx, 0x00984C08     ; parser
+            push    $heroString
+            call    0x00733A30          ; GetIndex
+            mov     ecx, [esi+6E4h]     ; instanz
+            cmp     eax, ecx
+            je      0x006E7534
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [Disable EquipBestWeapon after transform for player]
+        INT heroString = CreateMemString("PC_HERO")
+        #assembler [0x00745FA6]
+            mov     ecx, 0x00AB40C0     ; parser
+            push    $heroString
+            call    0x00793470          ; GetIndex
+            mov     ecx, [esi+770h]     ; instanz
+            cmp     eax, ecx
+            je      0x00745FB8
+            orgcode
+        #/assembler
+    #/patch
+#/engine
