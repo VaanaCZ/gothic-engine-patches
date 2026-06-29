@@ -4,9 +4,33 @@
 // Created by Vaana
 
 #engine [G1]
+    #patch [Disable EquipBestWeapon after transform for player]
+        INT heroString = CreateMemString("PC_HERO")
+        #assembler [0x006A2260]
+            mov     ecx, 0x008DCE08     ; parser
+            push    $heroString
+            call    0x006EA0C0          ; GetIndex
+            mov     ecx, [esi+7B0h]     ; instanz
+            cmp     eax, ecx
+            je      0x006A2272
+            orgcode
+        #/assembler
+    #/patch
 #/engine
 
 #engine [G1A]
+    #patch [Disable EquipBestWeapon after transform for player]
+        INT heroString = CreateMemString("PC_HERO")
+        #assembler [0x006D4A82]
+            mov     ecx, 0x00925048     ; parser
+            push    $heroString
+            call    0x00723120          ; GetIndex
+            mov     ecx, [esi+7B4h]     ; instanz
+            cmp     eax, ecx
+            je      0x006D4A94
+            orgcode
+        #/assembler
+    #/patch
 #/engine
 
 #engine [G2]
