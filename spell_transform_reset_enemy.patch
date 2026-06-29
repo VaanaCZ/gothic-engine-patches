@@ -6,9 +6,41 @@
 // Created by Vaana
 
 #engine [G1]
+    #patch [Prevent monsters from attacking transformed player]
+        #assembler [0x0074AE68]
+            mov     esi, [edi+37Ch]     ; enemy
+            xor     ebx, ebx
+            cmp     esi, ebx
+            jz      return
+            mov     ecx, [esi+00A8h]    ; homeWorld
+            cmp     ecx, ebx
+            jnz     return
+            mov     ecx, edi            ; this
+            push    0
+            call    0x00691A80          ; SetEnemy
+        return:
+            orgcode
+        #/assembler
+    #/patch
 #/engine
 
 #engine [G1A]
+    #patch [Prevent monsters from attacking transformed player]
+        #assembler [0x0078C358]
+            mov     esi, [edi+37Ch]     ; enemy
+            xor     ebx, ebx
+            cmp     esi, ebx
+            jz      return
+            mov     ecx, [esi+00A8h]    ; homeWorld
+            cmp     ecx, ebx
+            jnz     return
+            mov     ecx, edi            ; this
+            push    0
+            call    0x006C30A0          ; SetEnemy
+        return:
+            orgcode
+        #/assembler
+    #/patch
 #/engine
 
 #engine [G2]
