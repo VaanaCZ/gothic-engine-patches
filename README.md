@@ -7,7 +7,7 @@ Explanation of the folders:
 - `old/` - Contains previously made fixes, which I have since found issues with or don't like how they are done. You can use them but they might have unintended side effects.
 - `useful/` - Contains useful stuff mainly for Spacer. Changing lightmap resolution or disabling LoD generation for worlds.
 
-| Patch | Affected games | Integrated in Union | Integrated in Archolos | Description |
+| Patch | Affected games | Integrated in Union | Integrated in Archolos 2.0 | Description |
 |-------|-------|-------|-------|-------|
 | classic_climbing_fix | Only Gothic II Classic |  ❌ | ❌ | Fixes problems with climbing in G2 Classic |
 | mover_collision_fix | Gothic and Gothic Sequel |  ❌ | ❌ | Fixes gates getting stuck when closing/opening (Imported from G2) |
