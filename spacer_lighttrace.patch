@@ -1,3 +1,8 @@
+// Related to spacer_mrm_bbox_fix. It forces that alpha polys
+// are taken into consideration when computing lightmaps.
+// Otherwise trees with noColl=1 leaves will cast no shadows!
+// Ported from Gothic 2 by Vaana
+
 #engine [0x6C370582] Spacer_1
     #patch [Spacer lightmaps]
         BOOL g_bIsInCompileLightMode = False

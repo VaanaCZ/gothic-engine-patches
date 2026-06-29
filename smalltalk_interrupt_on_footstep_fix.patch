@@ -1,5 +1,7 @@
-// AI fixes for Union
-// created by Auronen, Fawkes and Vaana
+// By default PERC_ASSESSQUIETSOUND cancels all running
+// SVMs. This means player cancels NPCs smalltalk by
+// walking around them. This patch disabled this. 
+// Ported from Gothic 2 by Auronen, Fawkes and Vaana
 
 #engine [G1]
     #patch [Fixed SVM interrupt on certain perceptions]

@@ -1,10 +1,10 @@
-// Original G1 Spacer will ignore polygons that have an alpha
-// channel when generating the bbox. This means that when you
-// for example try to disable collision of tree leaves, it will
+// G1 Spacer will ignore polygons that have an alpha channel
+// when generating the bbox for a mesh. This means that when
+// you try to disable collision of tree leaves, it will
 // produce the wrong bbox => rendering errors.
 // This patch disables the check for alpha polygons so all
-// polygons are used for computing the bbox of the mesh. 
-// Created by Vaana
+// polygons are used for computing the bbox of the mesh.
+// Ported from Gothic 2 by Vaana
 
 #engine [0x6C370582] Spacer_1
     #patch [Dont ignore alpha polys]
