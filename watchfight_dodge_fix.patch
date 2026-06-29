@@ -1,0 +1,19 @@
+// Disables the ability for EV_Dodge to strafe sideways
+// in Gothic 2, this causes NPCs to get permanently stuck
+// in a strafe animation. Does not affect the combat,
+// which uses EV_Strafe!
+// Created by Vaana
+
+#engine [G2]
+    #patch [EV_Dodge fix]		
+        HEX @0x0079BEEB = 'EB'		// Disable left strafe
+        HEX @0x0079BF34 = 'EB'		// Disable right strafe
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [EV_Dodge fix]		
+        HEX @0x006853EB = 'EB'		// Disable left strafe
+        HEX @0x00685434 = 'EB'		// Disable right strafe
+    #/patch
+#/engine
