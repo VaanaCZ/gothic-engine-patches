@@ -7,13 +7,12 @@ Explanation of the folders:
 - `old/` - Contains previously made fixes, which I have since found issues with or don't like how they are done. You can use them but they might have unintended side effects.
 - `useful/` - Contains useful stuff mainly for Spacer. Changing lightmap resolution or disabling LoD generation for worlds.
 
-| Patch | Finished | Integrated in Union | Demonstration |
+| Patch | Affected games | Integrated in Union | Integrated in Archolos |
 |-------|-------|-------|-------|
-| humans_carry | ❌ | ❌ | |
-| humans_carry_controls | ❌ | ❌ | |
-| null_fix | ✔️ | ❌ | |
-| ou_interrupt_on_assess_fix | ❌️ | ❌ | |
-| ou_interrupt_on_startstate_fix | ✔️ | ❌ | [YouTube](https://www.youtube.com/watch?v=UvZ31WeFfqc) |
-| t_hang_2_falldn_fps_fix | ✔️ | ❌ | [YouTube](https://www.youtube.com/watch?v=fXMJGC2eDC8) |
-| t_swim_2_hang | ✔️ | ❌ | [YouTube](https://www.youtube.com/watch?v=3HDooz4HTX0) |
-| zcmover_collision_fix | ✔️ | ❌ | |
+| classic_climbing_fix | Only Gothic II Classic |  ❌ | ❌ | |
+| mover_collision_fix | Gothic 1 and Gothic Sequel |  ❌ | ❌ | |
+| mover_sound_update_fix | All |  ❌ | ✔️ | |
+| parser_null_fix | All |  ❌ | ❌ | |
+| smalltalk_interrupt_on_footstep_fix | Gothic 1 and Gothic Sequel |  ❌ | ❌ | |
+| spacer_lighttrace | Gothic 1 Spacer |  ❌ | ❌ | |
+| spacer_mrm_bbox | Gothic 1 Spacer |  ❌ | ❌ | |
