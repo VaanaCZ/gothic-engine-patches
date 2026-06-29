@@ -1,0 +1,50 @@
+// When the hero transform into a monster, any attacking
+// NPCs will still have their "enemy" pointer pointing
+// to the hero (who is now invisible). This causes them
+// to kill the player by hitting the invisible hero.
+// Even worse, in Gothic 1 it causes a crash!
+// Created by Vaana
+
+#engine [G1]
+#/engine
+
+#engine [G1A]
+#/engine
+
+#engine [G2]
+    #patch [Prevent monsters from attacking transformed player]
+        #assembler [0x00796D5D]
+            mov     edi, [esi+40Ch]     ; enemy
+            xor     ebx, ebx
+            cmp     edi, ebx
+            jz      return
+            mov     ecx, [edi+00B8h]    ; homeWorld
+            cmp     ecx, ebx
+            jnz     return
+            mov     ecx, esi            ; this
+            push    0
+            call    0x006D65A0          ; SetEnemy
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [Prevent monsters from attacking transformed player]
+        #assembler [0x0068023D]
+            mov     edi, [esi+498h]     ; enemy
+            xor     ebx, ebx
+            cmp     edi, ebx
+            jz      return
+            mov     ecx, [edi+00B8h]    ; homeWorld
+            cmp     ecx, ebx
+            jnz     return
+            mov     ecx, esi            ; this
+            push    0
+            call    0x00734BC0          ; SetEnemy
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
