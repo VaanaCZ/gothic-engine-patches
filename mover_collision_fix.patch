@@ -1,8 +1,8 @@
 // zCMover collision fix
-// Created by Vaana
-// Implemenets an additional check in CanThisCollideWith
-// to fix issues with movers. Ported straight from Gothic 2.
-
+// Implements an additional check in CanThisCollideWith
+// to fix issues with movers. Fixes the Old Camp gates
+// getting stuck when closing/opening.
+// Ported from Gothic 2 by Vaana
 
 #engine [G1]
     #patch [zCMover collision fix]

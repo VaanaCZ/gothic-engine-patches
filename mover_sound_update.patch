@@ -1,8 +1,8 @@
 // Mover sound update fix by Vaana
-//
 // The sound of moving movers is never updated and always
 // keeps playing from one direction. This is annoying and
 // my right ear has now gone deaf.
+// Created by Vaana
 
 #engine [G1]
     #patch [Mover sound update fix]

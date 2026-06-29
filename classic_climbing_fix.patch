@@ -8,6 +8,8 @@
 // change to climbing it instead.
 //
 // I won't bother porting this fix to Sequel
+//
+// Created by Vaana
 
 #engine [G2]
     #patch [Gothic 2 Classic climbing fix]
