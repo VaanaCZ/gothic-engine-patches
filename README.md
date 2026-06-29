@@ -1,5 +1,11 @@
 # Gothic Engine Patches
-A collection of engine patches implemented using Union
+A collection of engine patches implemented using Union.
+
+Explanation of the folders:
+- `/` (root) - These are fully working and tested patches, which are safe to use.
+- `experiments/` - Contains various experimental patches for stuff like restoring cut features. They are not tested and WILL have side effects.
+- `old/` - Contains previously made fixes, which I have since found issues with or don't like how they are done. You can use them but they might have unintended side effects.
+- `useful/` - Contains useful stuff mainly for Spacer. Changing lightmap resolution or disabling LoD generation for worlds.
 
 | Patch | Finished | Integrated in Union | Demonstration |
 |-------|-------|-------|-------|
