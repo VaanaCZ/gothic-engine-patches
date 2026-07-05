@@ -9,6 +9,7 @@
         #assembler [0x004F4140]
             fld     dword ptr [edi+54h]
             fstp    dword ptr [esi+54h]
+            orgcode
         #/assembler
     #/patch
 #/engine
@@ -18,6 +19,7 @@
         #assembler [0x006EF7A0]
             fld     dword ptr [edi+54h]
             fstp    dword ptr [esi+54h]
+            orgcode
         #/assembler
     #/patch
 #/engine
