@@ -1,0 +1,23 @@
+// When compiling sectors Spacer fails to
+// copy the FPS property to the newly created
+// sector material. This causes textures in
+// portal rooms to not be animated. This fixes it.
+// Created by Vaana
+
+#engine [0x6C370582] Spacer_1
+    #patch [Spacer sector material fix]
+        #assembler [0x004F4140]
+            fld     dword ptr [edi+54h]
+            fstp    dword ptr [esi+54h]
+        #/assembler
+    #/patch
+#/engine
+
+#engine [0xB1B45718] Spacer_2
+    #patch [Spacer sector material fix]
+        #assembler [0x006EF7A0]
+            fld     dword ptr [edi+54h]
+            fstp    dword ptr [esi+54h]
+        #/assembler
+    #/patch
+#/engine

@@ -16,6 +16,7 @@ Explanation of the folders:
 | smalltalk_interrupt_on_footstep_fix | Gothic and Gothic Sequel |  ❌ | ❌ | Fixes voicelines being terminated incorrectly (Imported from G2) |
 | spacer_lighttrace | Gothic 1 Spacer |  ❌ | ❌ | Changes light compilation behaviour to match Gothic 2 |
 | spacer_mrm_bbox | Gothic 1 Spacer |  ❌ | ❌ | Changes mesh compilation behaviour to match Gothic 2 |
+| spacer_sectormaterial_fps_fix | Gothic 1 Spacer and Gothic 2 Spacer  |  ❌ | ✔️ | Fixes animated textures not working inside portal rooms |
 | spell_transform_equipweapon_fix | All |  ❌ | ✔️ | Stops the hero's weapons being changed after ending a transformation spell |
 | spell_transform_reset_enemy | All |  ❌ | ✔️ | Fixes monsters attacking the invisible hero while transformed |
 | watchfight_dodge_fix | Gothic II Classic and Gothic II Gold |  ❌ | ✔️ | Fixes NPCs strafing sideways infinitely while watching a fight |
