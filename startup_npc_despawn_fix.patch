@@ -1,0 +1,72 @@
+// Fixes a bug where routine-less NPCs close to 0,0,0 will not spawn
+// when going through a changelevel trigger, which advances time.
+// The main example of this is sheep in the Old Camp castle in Gothic II.
+// Created by Vaana
+
+#engine [G1]
+    #patch [Wld_SetTime in startup fix]
+        #assembler [0x0063A965]
+            xor     ebx, ebx
+            cmp     [esi+24h], ebx
+            jz      return
+            pop     edi
+            pop     esi
+            pop     ebx
+            add     esp, 8
+            ret     0Ch
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G1A]
+    #patch [Wld_SetTime in startup fix]
+        #assembler [0x00661245]
+            xor     ebx, ebx
+            cmp     [esi+24h], ebx
+            jz      return
+            pop     edi
+            pop     esi
+            pop     ebx
+            add     esp, 8
+            ret     0Ch
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2]
+    #patch [Wld_SetTime in startup fix]
+        #assembler [0x006681B5]
+            xor     ebx, ebx
+            cmp     [esi+24h], ebx
+            jz      return
+            pop     edi
+            pop     esi
+            pop     ebx
+            add     esp, 8
+            ret     0Ch
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [Wld_SetTime in startup fix]
+        #assembler [0x006C4E35]
+            xor     ebx, ebx
+            cmp     [esi+24h], ebx
+            jz      return
+            pop     edi
+            pop     esi
+            pop     ebx
+            add     esp, 8
+            ret     0Ch
+        return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine

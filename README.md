@@ -19,4 +19,5 @@ Explanation of the folders:
 | spacer_sectormaterial_fps_fix | Gothic 1 Spacer and Gothic 2 Spacer  |  ❌ | ✔️ | Fixes animated textures not working inside portal rooms |
 | spell_transform_equipweapon_fix | All |  ❌ | ✔️ | Stops the hero's weapons being changed after ending a transformation spell |
 | spell_transform_reset_enemy | All |  ❌ | ✔️ | Fixes monsters attacking the invisible hero while transformed |
+| startup_npc_despawn_fix | All |  ❌ | ❌ | Fixes monsters not spawning after going through a changelevel trigger (Sheep in Old Castle in G2) |
 | watchfight_dodge_fix | Gothic II Classic and Gothic II Gold |  ❌ | ✔️ | Fixes NPCs strafing sideways infinitely while watching a fight |
