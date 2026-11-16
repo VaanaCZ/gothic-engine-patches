@@ -10,6 +10,7 @@ Explanation of the folders:
 | Patch | Affected games | Integrated in Union | Integrated in Archolos 2.0 | Description |
 |-------|-------|-------|-------|-------|
 | classic_climbing_fix | Only Gothic II Classic |  ❌ | ❌ | Fixes problems with climbing in G2 Classic |
+| footsteps_water_fix | All |  ❌ | ✔️ | Adds water footsteps to shallow water |
 | mover_collision_fix | Gothic and Gothic Sequel |  ❌ | ❌ | Fixes gates getting stuck when closing/opening (Imported from G2) |
 | mover_sound_update_fix | All |  ❌ | ✔️ | Fixes sound not moving together with movers |
 | parser_null_fix | All |  ❌ | ❌ | Fixes issue with smalltalk, among other things. |
