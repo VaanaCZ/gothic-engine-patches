@@ -1,0 +1,73 @@
+// While walking in very shallow water, water footsteps are
+// are not played, even if they are defined in sfxinst.d.
+// This patch adds a check for shallow water that lets
+// water footsteps play.
+// Created by Vaana
+
+#engine [G1]
+    #patch [Water footsteps fix]
+        #assembler [0x00561C8E]
+            mov     ecx, [edi+54h]
+            mov     ecx, [ecx+0FCh]     ; m_poCollisionObject
+            test    ecx, ecx
+            jz      return
+            mov     ecx, [ecx+0D4h]     ; m_poWaterPoly
+            test    ecx, ecx
+            jz      return
+            mov     eax, ecx
+         return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G1A]
+    #patch [Water footsteps fix]
+        #assembler [0x0057A3A3]
+            mov     ecx, [edi+54h]
+            mov     ecx, [ecx+0FCh]     ; m_poCollisionObject
+            test    ecx, ecx
+            jz      return
+            mov     ecx, [ecx+0D4h]     ; m_poWaterPoly
+            test    ecx, ecx
+            jz      return
+            mov     eax, ecx
+         return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2]
+    #patch [Water footsteps fix]
+        #assembler [0x00576549]
+            mov     edx, ecx
+            mov     edx, [edx+11Ch]     ; m_poCollisionObject
+            test    edx, edx
+            jz      return
+            mov     edx, [edx+0D4h]     ; m_poWaterPoly
+            test    edx, edx
+            jz      return
+            mov     eax, edx
+         return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
+
+#engine [G2A]
+    #patch [Water footsteps fix]
+        #assembler [0x0057BA69]
+            mov     edx, ecx
+            mov     edx, [edx+11Ch]     ; m_poCollisionObject
+            test    edx, edx
+            jz      return
+            mov     edx, [edx+0D4h]     ; m_poWaterPoly
+            test    edx, edx
+            jz      return
+            mov     eax, edx
+         return:
+            orgcode
+        #/assembler
+    #/patch
+#/engine
